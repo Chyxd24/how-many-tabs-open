@@ -1,19 +1,18 @@
-#!/usr/bin/env python3
-"""How Many Tabs Do You Have Open? — write one number to /output/entry.txt."""
+"""How Many Tabs Do You Have Open? — one number to /output/entry.txt.
+
+Stdlib only, no network, deterministic.
+Revision: count kept, rewritten as a flat authored script.
+"""
 import os
 
+# The honest number. Every one of them is "just for reference".
 COUNT = "47"
+PATH = "/output/entry.txt"
 
-OUT = "/output/entry.txt"
-
-def main():
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
-        f.write(COUNT)
-    with open(OUT, encoding="utf-8") as f:
-        landed = f.read()
-    assert landed == COUNT, f"readback mismatch: {landed!r}"
-    print(f"wrote {landed!r}")
-
-if __name__ == "__main__":
-    main()
+os.makedirs(os.path.dirname(PATH), exist_ok=True)
+with open(PATH, "w", encoding="utf-8") as fh:
+    fh.write(COUNT)
+with open(PATH, encoding="utf-8") as fh:
+    landed = fh.read()
+assert landed == COUNT, f"readback mismatch: {landed!r}"
+print(f"wrote {landed!r} to {PATH}")
